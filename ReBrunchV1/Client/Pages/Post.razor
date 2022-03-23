@@ -1,0 +1,17 @@
+﻿@page "/posts/{url}"
+@inject ReBrunchV1.Client.Services.IBlogPostService BlogPostService
+@using ReBrunchV1.Shared
+
+<h3>@CurrentPost.Title</h3>
+
+@code {
+    private BlogPost CurrentPost;
+
+    [Parameter]
+    public string Url { get; set; }
+
+    protected override void OnInitialized()
+    {
+        CurrentPost = BlogPostService.GetBlogPostByUrl(Url);
+    }
+}

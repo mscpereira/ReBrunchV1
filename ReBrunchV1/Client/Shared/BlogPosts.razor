@@ -1,5 +1,6 @@
 ﻿@using ReBrunchV1.Shared
 @using System.Drawing
+@inject ReBrunchV1.Client.Services.IBlogPostService BlogPostService
 
 <div class="container container__main">
 	<section class="bg-transparent">
@@ -52,7 +53,7 @@
 								<li class="tag__item"><i class="fas fa-tag mr-2"></i>Map</li>
 								<li class="tag__item"><i class="fas fa-clock mr-2"></i>Rate</li>
 								<li class="tag__item play green">
-									<a href="#"><i class="fas fa-play mr-2"></i>Read more...</a>
+									<a href="/posts/@post.Url"><i class="fas fa-play mr-2"></i>Read more...</a>
 								</li>
 							</ul>
 						</div>
@@ -64,9 +65,10 @@
 </div>
 
 @code {
-	public List<BlogPost> Posts { get; set; } = new List<BlogPost>()
-    {
-        new BlogPost { Id = 1, Url = "first-post", DateCreated = new DateTime(2021, 10, 01), Restaurant = "Canto dos Sabores", Title= "Our first review, a magical experience!", Description ="This is our very first Post. From the eggs to the bread, all perfect."},
-        new BlogPost { Id = 2, Url = "second-post", DateCreated = new DateTime(2022, 02, 22), Restaurant = "Pátio dos Petiscos", Title= "Our second review, a bad experience!", Description ="This is our second experience. From the milk to the ham, low on both quality and quantity."}
-    };
+	private List<BlogPost> Posts = new List<BlogPost>();
+
+	protected override void OnInitialized()
+	{
+		Posts = BlogPostService.GetBlogPosts();
+	}
 }
