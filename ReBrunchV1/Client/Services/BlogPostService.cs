@@ -36,8 +36,21 @@ namespace ReBrunchV1.Client.Services
         }
         public async Task<BlogPost> GetBlogPostByUrl(string url)
         {
-            var post = await _http.GetFromJsonAsync<BlogPost>($"api/BlogPost/{url}");
-            return post;
+            //var post = await _http.GetFromJsonAsync<BlogPost>($"api/BlogPost/{url}");
+            //return post;
+
+            //Update this methodto react to a 404
+            var result = await _http.GetAsync($"api/BlogPost/{url}");
+            if (result.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var message = await result.Content.ReadAsStringAsync();
+                Console.WriteLine(message);
+                return new BlogPost { Title = message };
+            }
+            else
+            {
+                return await result.Content.ReadFromJsonAsync<BlogPost>();
+            }
         }
 
         public async Task<List<BlogPost>> GetBlogPosts()
