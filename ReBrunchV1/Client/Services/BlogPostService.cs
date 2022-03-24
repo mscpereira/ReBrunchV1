@@ -10,8 +10,8 @@ namespace ReBrunchV1.Client.Services
 {
     public class BlogPostService : IBlogPostService
     {
-        ////Passed to the BLogPostController with Http Get
-        ///
+        //Passed to the BLogPostController with Http Get
+
         //public List<BlogPost> Posts { get; set; } = new List<BlogPost>()
         //{
         //    new BlogPost { Id = 1, Url = "first-post-from-API", DateCreated = new DateTime(2021, 10, 01), Restaurant = "Canto dos Sabores", Title= "Our first review, a magical experience!", Description ="This is our very first Post. From the eggs to the bread, all perfect."},
@@ -29,20 +29,20 @@ namespace ReBrunchV1.Client.Services
         //}
 
         //After passing the mocked data to the controller we need a constructor and make the web call assyncronous
-        private readonly HttpClient http;
+        private readonly HttpClient _http;
         public BlogPostService(HttpClient http)
         {
-            this.http = http;
+            _http = http;
         }
         public async Task<BlogPost> GetBlogPostByUrl(string url)
         {
-            var post = await http.GetFromJsonAsync<BlogPost>($"api/Blog/{url}");
+            var post = await _http.GetFromJsonAsync<BlogPost>($"api/BlogPost/{url}");
             return post;
         }
 
-        public async Task <List<BlogPost>> GetBlogPosts()
+        public async Task<List<BlogPost>> GetBlogPosts()
         {
-            return await http.GetFromJsonAsync<List<BlogPost>>("api/Blog");
+            return await _http.GetFromJsonAsync<List<BlogPost>>("api/BlogPost");
         }
     }
 }

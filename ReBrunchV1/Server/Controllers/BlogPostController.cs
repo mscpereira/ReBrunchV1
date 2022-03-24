@@ -11,10 +11,10 @@ namespace ReBrunchV1.Server.Controllers
     [ApiController]
     public class BlogPostController : ControllerBase
     {
-        public List<BlogPost> Posts { get; set; } = new List<BlogPost>()
+        public List<BlogPost> Posts { get; set; } = new List<BlogPost>
         {
-            new BlogPost { Id = 1, Url = "first-post-from-API", DateCreated = new DateTime(2021, 10, 01), Restaurant = "Canto dos Sabores", Title= "Our first review, a magical experience!", Description ="This is our very first Post. From the eggs to the bread, all perfect."},
-            new BlogPost { Id = 2, Url = "second-post-from-API", DateCreated = new DateTime(2022, 02, 22), Restaurant = "Pátio dos Petiscos", Title= "Our second review, a bad experience!", Description ="This is our second experience. From the milk to the ham, low on both quality and quantity."}
+            new BlogPost { Id = 1, Url = "first-post", DateCreated = new DateTime(2021, 10, 01), Restaurant = "Canto dos Sabores", Title= "Our first review, a magical experience API!", Description ="This is our very first Post. From the eggs to the bread, all perfect."},
+            new BlogPost { Id = 2, Url = "second-post", DateCreated = new DateTime(2022, 02, 22), Restaurant = "Pátio dos Petiscos", Title= "Our second review, a bad experience API!", Description ="This is our second experience. From the milk to the ham, low on both quality and quantity."}
         };
 
         [HttpGet]
@@ -29,7 +29,10 @@ namespace ReBrunchV1.Server.Controllers
             var post = Posts.FirstOrDefault(p => p.Url.ToLower().Equals(url.ToLower()));
 
             if (post == null)
+            {
                 return NotFound("This post does not exist.");
+
+            }
 
             return Ok(post);
         }

@@ -2,16 +2,23 @@
 @inject ReBrunchV1.Client.Services.IBlogPostService BlogPostService
 @using ReBrunchV1.Shared
 
-<h3>@CurrentPost.Title</h3>
+@if(CurrentPost == null)
+{
+    <span>Getting that BlogPost from the service...</span>
+}
+else
+{
+    <h3>@CurrentPost.Title</h3>   
+}
 
 @code {
-    private BlogPost CurrentPost;
+    private ReBrunchV1.Shared.BlogPost CurrentPost;
 
     [Parameter]
     public string Url { get; set; }
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        CurrentPost = BlogPostService.GetBlogPostByUrl(Url);
+        CurrentPost = await BlogPostService.GetBlogPostByUrl(Url);
     }
 }

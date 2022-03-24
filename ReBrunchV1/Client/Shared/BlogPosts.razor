@@ -67,8 +67,13 @@
 @code {
 	private List<BlogPost> Posts = new List<BlogPost>();
 
-	protected override void OnInitialized()
+	//protected override void OnInitialized()
+	//{
+	//	Posts = BlogPostService.GetBlogPosts();
+	//}
+
+	protected override async Task OnInitializedAsync()
 	{
-		Posts = BlogPostService.GetBlogPosts();
+		Posts = await BlogPostService.GetBlogPosts();
 	}
 }
