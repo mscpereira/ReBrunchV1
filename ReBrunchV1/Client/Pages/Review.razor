@@ -1,0 +1,24 @@
+﻿@page "/reviewers/{id}"
+@inject ReBrunchV1.Client.Services.IReviewerService ReviewerService
+@using ReBrunchV1.Shared
+
+@if(CurrentReviewer == null)
+{
+    <span>Getting that Reviewer from the service...</span>
+}
+else
+{
+    <h3>@CurrentReviewer.FirstName</h3>   
+}
+
+@code {
+    private ReBrunchV1.Shared.Reviewer CurrentReviewer;
+
+    [Parameter]
+    public string Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        CurrentReviewer = await ReviewerService.GetReviewerById(Id);
+    }
+}

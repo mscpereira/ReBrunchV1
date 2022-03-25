@@ -1,0 +1,41 @@
+﻿@using ReBrunchV1.Shared
+@using System.Drawing
+@inject ReBrunchV1.Client.Services.IReviewerService ReviewerService
+
+<table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Reviewer ID</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reviewer in OurReviewers)
+            {
+                <tr>
+                    <td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/1-small.jpg")" class="rounded-circle" /></td>
+                    <td>@reviewer.Id</td>
+                    <td>@reviewer.FirstName</td>
+                    <td>@reviewer.LastName</td>
+                    <td>
+                        <a href="@($"reviewerdetail/{reviewer.Id}")" class="btn alert-primary table-btn">
+                            <i class="fas fa-info-circle"></i>    
+                        </a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+</table>
+
+@code {
+    private List<Reviewer> OurReviewers = new List<Reviewer>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		OurReviewers = await ReviewerService.GetReviewers();
+	}
+}

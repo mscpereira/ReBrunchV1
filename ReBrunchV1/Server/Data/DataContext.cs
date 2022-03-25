@@ -9,7 +9,7 @@ namespace ReBrunchV1.Server.Data
         {
 
         }
-
         public DbSet<BlogPost> BlogPosts { get; set; }
+        public DbSet<Reviewer> Reviewers { get; set; }
     }
 }

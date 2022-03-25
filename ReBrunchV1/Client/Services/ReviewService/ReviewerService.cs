@@ -1,0 +1,39 @@
+﻿using ReBrunchV1.Shared;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+
+namespace ReBrunchV1.Client.Services
+{
+    public class ReviewerService : IReviewerService
+    {
+        private readonly HttpClient _http;
+        public ReviewerService(HttpClient http)
+        {
+            _http = http;
+        }
+        public async Task<Reviewer> GetReviewerById(string id)
+        {
+
+            //Update this methodto react to a 404
+            var result = await _http.GetAsync($"api/Reviewer/{id}");
+            if (result.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                var message = await result.Content.ReadAsStringAsync();
+                Console.WriteLine(message);
+                return new Reviewer { FirstName = message };
+            }
+            else
+            {
+                return await result.Content.ReadFromJsonAsync<Reviewer>();
+            }
+        }
+
+        public async Task<List<Reviewer>> GetReviewers()
+        {
+            return await _http.GetFromJsonAsync<List<Reviewer>>("api/Reviewer");
+        }
+    }
+}

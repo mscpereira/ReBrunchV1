@@ -20,6 +20,7 @@ namespace ReBrunchV1.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<IBlogPostService, BlogPostService>();
+            builder.Services.AddScoped<IReviewerService, ReviewerService>();
 
             await builder.Build().RunAsync();
         }
