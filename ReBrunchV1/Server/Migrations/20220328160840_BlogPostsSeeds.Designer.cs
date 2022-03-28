@@ -10,8 +10,8 @@ using ReBrunchV1.Server.Data;
 namespace ReBrunchV1.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220324180529_Initial")]
-    partial class Initial
+    [Migration("20220328160840_BlogPostsSeeds")]
+    partial class BlogPostsSeeds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,9 +27,6 @@ namespace ReBrunchV1.Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AuthorAddress")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -67,8 +64,8 @@ namespace ReBrunchV1.Server.Migrations
                     b.Property<string>("Restaurant")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReviewerId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ReviewerId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -79,6 +76,39 @@ namespace ReBrunchV1.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BlogPosts");
+                });
+
+            modelBuilder.Entity("ReBrunchV1.Shared.Reviewer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("JoinedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Reviewers");
                 });
 #pragma warning restore 612, 618
         }

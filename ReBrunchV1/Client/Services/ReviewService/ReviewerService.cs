@@ -14,7 +14,7 @@ namespace ReBrunchV1.Client.Services
         {
             _http = http;
         }
-        public async Task<Reviewer> GetReviewerById(string id)
+        public async Task<Reviewer> GetReviewerById(int id)
         {
 
             //Update this methodto react to a 404

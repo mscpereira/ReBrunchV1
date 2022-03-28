@@ -11,36 +11,15 @@ namespace ReBrunchV1.Client.Services
     public class BlogPostService : IBlogPostService
     {
         //Passed to the BLogPostController with Http Get
-
-        //public List<BlogPost> Posts { get; set; } = new List<BlogPost>()
-        //{
-        //    new BlogPost { Id = 1, Url = "first-post-from-API", DateCreated = new DateTime(2021, 10, 01), Restaurant = "Canto dos Sabores", Title= "Our first review, a magical experience!", Description ="This is our very first Post. From the eggs to the bread, all perfect."},
-        //    new BlogPost { Id = 2, Url = "second-post-from-API", DateCreated = new DateTime(2022, 02, 22), Restaurant = "Pátio dos Petiscos", Title= "Our second review, a bad experience!", Description ="This is our second experience. From the milk to the ham, low on both quality and quantity."}
-        //};
-
-        //public BlogPost GetBlogPostByUrl(string url)
-        //{
-        //    return Posts.FirstOrDefault(p => p.Url.ToLower().Equals(url.ToLower()));
-        //}
-
-        //public List<BlogPost> GetBlogPosts()
-        //{
-        //    return Posts;
-        //}
-
         //After passing the mocked data to the controller we need a constructor and make the web call assyncronous
         private readonly HttpClient _http;
         public BlogPostService(HttpClient http)
         {
             _http = http;
         }
-        public async Task<BlogPost> GetBlogPostByUrl(string url)
+        public async Task<BlogPost> GetBlogPostById(int id)
         {
-            //var post = await _http.GetFromJsonAsync<BlogPost>($"api/BlogPost/{url}");
-            //return post;
-
-            //Update this methodto react to a 404
-            var result = await _http.GetAsync($"api/BlogPost/{url}");
+            var result = await _http.GetAsync($"api/BlogPost/{id}");
             if (result.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var message = await result.Content.ReadAsStringAsync();
@@ -59,3 +38,4 @@ namespace ReBrunchV1.Client.Services
         }
     }
 }
+

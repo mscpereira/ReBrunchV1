@@ -16,8 +16,7 @@ namespace ReBrunchV1.Shared
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string Description { get; set; }
-        public string ReviewerId { get; set; }
-        public string AuthorAddress { get; set; }
+        public int ReviewerId { get; set; }
         public string Image { get; set; }
         public int Rating { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;

@@ -7,7 +7,7 @@
 		<div class="container py-2">
 			<div class="h1 text-center text-dark" id="pageHeaderTitle">Latest Reviews</div>
 				
-			@foreach (var post in Posts)
+			@foreach (var post in OurPosts)
 		{
 				if((@post.Id)%2 != 0)
 				{
@@ -28,7 +28,7 @@
 								<li class="tag__item"><i class="fas fa-tag mr-2"></i>Map</li>
 								<li class="tag__item"><i class="fas fa-clock mr-2"></i>Rate</li>
 								<li class="tag__item play green">
-									<a href="/posts/@post.Url"><i class="fas fa-play mr-2"></i>Read more...</a>
+									<a href="/posts/@post.Id"><i class="fas fa-play mr-2"></i>Read more...</a>
 								</li>
 							</ul>
 						</div>
@@ -53,7 +53,7 @@
 								<li class="tag__item"><i class="fas fa-tag mr-2"></i>Map</li>
 								<li class="tag__item"><i class="fas fa-clock mr-2"></i>Rate</li>
 								<li class="tag__item play green">
-									<a href="/posts/@post.Url"><i class="fas fa-play mr-2"></i>Read more...</a>
+									<a href="/posts/@post.Id"><i class="fas fa-play mr-2"></i>Read more...</a>
 								</li>
 							</ul>
 						</div>
@@ -65,15 +65,10 @@
 </div>
 
 @code {
-	private List<BlogPost> Posts = new List<BlogPost>();
-
-	//protected override void OnInitialized()
-	//{
-	//	Posts = BlogPostService.GetBlogPosts();
-	//}
+	private List<BlogPost> OurPosts = new List<BlogPost>();
 
 	protected override async Task OnInitializedAsync()
 	{
-		Posts = await BlogPostService.GetBlogPosts();
+		OurPosts = await BlogPostService.GetBlogPosts();
 	}
 }

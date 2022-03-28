@@ -1,4 +1,4 @@
-﻿@page "/posts/{url}"
+﻿@page "/posts/{id}"
 @inject ReBrunchV1.Client.Services.IBlogPostService BlogPostService
 @using ReBrunchV1.Shared
 
@@ -15,10 +15,10 @@ else
     private ReBrunchV1.Shared.BlogPost CurrentPost;
 
     [Parameter]
-    public string Url { get; set; }
+    public int Id { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        CurrentPost = await BlogPostService.GetBlogPostByUrl(Url);
+        CurrentPost = await BlogPostService.GetBlogPostById(Id);
     }
 }

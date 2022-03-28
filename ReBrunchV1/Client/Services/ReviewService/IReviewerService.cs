@@ -7,6 +7,6 @@ namespace ReBrunchV1.Client.Services
     public interface IReviewerService
     {
         Task<List<Reviewer>> GetReviewers();
-        Task<Reviewer> GetReviewerById(string id);
+        Task<Reviewer> GetReviewerById(int id);
     }
 }

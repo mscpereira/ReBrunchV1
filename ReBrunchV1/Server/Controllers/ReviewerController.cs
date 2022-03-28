@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ReBrunchV1.Server.Data;
 using ReBrunchV1.Shared;
 using System;
 using System.Collections.Generic;
@@ -11,22 +12,22 @@ namespace ReBrunchV1.Server.Controllers
     [ApiController]
     public class ReviewerController : ControllerBase
     {
-        public List<Reviewer> Reviewers { get; set; } = new List<Reviewer>
+        private readonly DataContext _reviewerContext;
+        public ReviewerController(DataContext reviewerContext)   //In order to Go to DB get the data.
         {
-            new Reviewer { Id = 1, FirstName = "Mário", LastName = "Pereira", BirthDate = new DateTime(1990, 07, 04), Email= "mario@gmail.com", JoinedDate = new DateTime(2022, 01, 01), Role = 1},
-            new Reviewer { Id = 2, FirstName = "Ana", LastName = "Serrano", BirthDate = new DateTime(1990, 03, 07), Email= "anaserrano@gmail.com", JoinedDate = new DateTime(2022, 02, 05), Role = 2}
-        };
+            _reviewerContext = reviewerContext;
+        }
 
         [HttpGet]
         public ActionResult<List<Reviewer>> GetAllReviewers()
         {
-            return Ok(Reviewers);
+            return Ok(_reviewerContext.Reviewers);
         }
 
         [HttpGet("{id}")]
         public ActionResult<Reviewer> GetSingleReviewer(int id)
         {
-            var reviewer = Reviewers.FirstOrDefault(p => p.Id.Equals(id));
+            var reviewer = _reviewerContext.Reviewers.FirstOrDefault(p => p.Id.Equals(id));
 
             if (reviewer == null)
             {
