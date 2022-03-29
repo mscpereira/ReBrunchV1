@@ -7,6 +7,7 @@ namespace ReBrunchV1.Client.Services
     interface IBlogPostService
     {
         Task<List<BlogPost>> GetBlogPosts();
-        Task<BlogPost> GetBlogPostById(int id);
+        Task<BlogPost> GetBlogPostByUrl(string url);
+        Task<BlogPost> CreateNewBlogPost(BlogPost request);
     }
 }

@@ -17,9 +17,16 @@ namespace ReBrunchV1.Client.Services
         {
             _http = http;
         }
-        public async Task<BlogPost> GetBlogPostById(int id)
+
+        public async Task<BlogPost> CreateNewBlogPost(BlogPost request)
         {
-            var result = await _http.GetAsync($"api/BlogPost/{id}");
+            var result = await _http.PostAsJsonAsync("api/BlogPost", request);
+            return await result.Content.ReadFromJsonAsync<BlogPost>();
+        }
+
+        public async Task<BlogPost> GetBlogPostByUrl(string url)
+        {
+            var result = await _http.GetAsync($"api/BlogPost/{url}");
             if (result.StatusCode != System.Net.HttpStatusCode.OK)
             {
                 var message = await result.Content.ReadAsStringAsync();

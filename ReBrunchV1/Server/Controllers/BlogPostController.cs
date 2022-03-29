@@ -5,6 +5,7 @@ using ReBrunchV1.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ReBrunchV1.Server.Controllers
 {
@@ -26,10 +27,10 @@ namespace ReBrunchV1.Server.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public ActionResult<BlogPost> GetSingleBlogPost(int id)
+        [HttpGet("{url}")]
+        public ActionResult<BlogPost> GetSingleBlogPost(string url)
         {
-            var post = _blogPostContext.BlogPosts.FirstOrDefault(p => p.Id.Equals(id));
+            var post = _blogPostContext.BlogPosts.FirstOrDefault(p => p.Url.ToLower().Equals(url.ToLower()));
 
             if (post == null)
             {
@@ -38,6 +39,14 @@ namespace ReBrunchV1.Server.Controllers
             }
 
             return Ok(post);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<BlogPost>> CrateNewBlogPost(BlogPost request)
+        {
+            _blogPostContext.Add(request);
+            await _blogPostContext.SaveChangesAsync();
+            return request;
         }
     }
 }

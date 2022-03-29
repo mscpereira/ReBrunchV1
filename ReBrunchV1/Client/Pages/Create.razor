@@ -1,0 +1,76 @@
+﻿@page "/create"
+@inject ReBrunchV1.Client.Services.IBlogPostService BlogPostService
+@inject NavigationManager NavigationManager
+
+<h3>Create a new Blog Post</h3>
+
+<EditForm Model="@newBlogPost" OnValidSubmit="CreateNewBlogPost">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="title">Title</label>
+        <InputText id="title" @bind-Value="newBlogPost.Title" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.Title)" />
+    </div>
+    <div class="form-group">
+        <label for="restaurant">Restaurant</label>
+        <InputText id="restaurant" @bind-Value="newBlogPost.Restaurant" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.Restaurant)" />
+    </div>
+    <div class="form-group">
+        <label for="city">City</label>
+        <InputText id="city" @bind-Value="newBlogPost.City" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.City)" />
+    </div>    
+    <div class="form-group">
+        <label for="country">Country</label>
+        <InputText id="country" @bind-Value="newBlogPost.Country" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.Country)" />
+    </div>
+    <div class="form-group">
+        <label for="latitude">Latitude</label>
+        <InputNumber id="latitude" @bind-Value="newBlogPost.Latitude" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.Latitude)" />
+    </div>
+    <div class="form-group">
+        <label for="longitude">Longitude</label>
+        <InputNumber id="longitude" @bind-Value="newBlogPost.Longitude" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.Longitude)" />
+    </div>
+    <div class="form-group">
+        <label for="diet">Diet</label>
+        <InputTextArea id="diet" @bind-Value="newBlogPost.Diet" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="url">Url</label>
+        <InputText id="url" @bind-Value="newBlogPost.Url" class="form-control" />
+        <ValidationMessage For="@(() => newBlogPost.Url)" />
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <InputText id="description" @bind-Value="newBlogPost.Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="rating">Rating</label>
+        <InputNumber id="rating" @bind-Value="newBlogPost.Rating" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="reviewer">Reviewer</label>
+        <InputNumber id="reviewer" @bind-Value="newBlogPost.ReviewerId" class="form-control" />
+    </div>
+    <div class="form-check">
+        <InputCheckbox id="isPublished" @bind-Value="newBlogPost.IsPublished" class="form-check-input" />
+        <label for="isPublished">Publish</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <ValidationSummary />
+</EditForm>
+
+@code {
+    ReBrunchV1.Shared.BlogPost newBlogPost = new ReBrunchV1.Shared.BlogPost();
+    async Task CreateNewBlogPost()
+    {
+        var result = await BlogPostService.CreateNewBlogPost(newBlogPost);
+        NavigationManager.NavigateTo($"/posts/{result.Url}");
+    }
+}
