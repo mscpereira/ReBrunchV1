@@ -16,6 +16,10 @@
         <InputText id="restaurant" @bind-Value="newBlogPost.Restaurant" class="form-control" />
         <ValidationMessage For="@(() => newBlogPost.Restaurant)" />
     </div>
+    <div class="form-control-file">
+        <label for="image">Image</label>
+        <InputFile OnChange="OnFileChange"/>
+    </div>
     <div class="form-group">
         <label for="city">City</label>
         <InputText id="city" @bind-Value="newBlogPost.City" class="form-control" />
@@ -72,5 +76,15 @@
     {
         var result = await BlogPostService.CreateNewBlogPost(newBlogPost);
         NavigationManager.NavigateTo($"/posts/{result.Url}");
+    }
+
+    async Task OnFileChange(InputFileChangeEventArgs e)
+    {
+        var format = "image/png";
+        var newImage = e.File;
+        var buffer = new byte[newImage.Size];
+        await newImage.OpenReadStream().ReadAsync(buffer);
+        var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+        newBlogPost.Image = imageData;
     }
 }

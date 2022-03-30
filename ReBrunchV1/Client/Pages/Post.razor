@@ -4,13 +4,44 @@
 
 @if(CurrentPost == null)
 {
-    <span>Getting that BlogPost from the service...</span>
+    <span>Getting that Post from the service...</span>
 }
 else
 {
-    <h3>@CurrentPost.Title</h3>   
-}
+    <a href="@($"posts")" class="btn alert-primary table-btn">
+        <i class="fa-solid fa-backward"></i>   
+    </a>
 
+
+<div class="card shadow bg-light mb-3" style="max-width: 80%">
+    <h2 class="card-title text-center mt-3">Details for @CurrentPost.Title</h2>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <img src="@CurrentPost.Image" class="mx-auto d-block" alt="card post photo" style="max-width: 100%">
+        </div>
+    </div>
+    <div class="row g-0 d-flex justify-content-center align-items-center">
+        <div class="col-4">
+            <div class="card-body">
+                <p class="card-text"><strong>Restaurant:</strong> @CurrentPost.Restaurant</p>
+                <p class="card-text"><strong>Diet:</strong> @CurrentPost.Diet</p>
+                <p class="card-text"><strong>Description:</strong> @CurrentPost.Description</p> 
+                <p class="card-text"><strong>City:</strong> @CurrentPost.City</p>
+                <p class="card-text"><strong>Country:</strong> @CurrentPost.Country</p>
+                <p class="card-text"><strong>Rating:</strong> @CurrentPost.Rating</p>
+            </div>
+        </div> 
+        <div class="col-4">
+            <div class="card-body">
+            <p class="card-text"><strong>Latitude:</strong> @CurrentPost.Latitude</p>
+            <p class="card-text"><strong>Longitude:</strong> @CurrentPost.Longitude</p>
+            </div>
+        </div>
+    </div>
+</div>
+        
+}
 @code {
     private ReBrunchV1.Shared.BlogPost CurrentPost;
 
