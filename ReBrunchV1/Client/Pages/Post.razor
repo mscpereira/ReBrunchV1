@@ -14,26 +14,52 @@ else
 
 
 <div class="card shadow bg-light mb-3" style="max-width: 80%">
-    <h2 class="card-title text-center mt-3">Details for @CurrentPost.Title</h2>
+    <h2 class="card-title text-center mt-3">@CurrentPost.Title</h2>
+    <p class="lead text-center">@CurrentPost.Restaurant</p>
     <hr />
     <div class="row">
         <div class="col-12">
-            <img src="@CurrentPost.Image" class="mx-auto d-block" alt="card post photo" style="max-width: 100%">
+            <img src="@CurrentPost.Image" class="mx-auto d-block" alt="card post photo" style="max-width:100%">
         </div>
     </div>
     <div class="row g-0 d-flex justify-content-center align-items-center">
-        <div class="col-4">
-            <div class="card-body">
-                <p class="card-text"><strong>Restaurant:</strong> @CurrentPost.Restaurant</p>
-                <p class="card-text"><strong>Diet:</strong> @CurrentPost.Diet</p>
+        <div class="col-6">
+            <div class="card-body p-4">
+                <div class="container-chip">
+                    <div class="chip">
+                        <img id="reviewer-avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6_dXRBg2AgAHroCKU_I___QhM__nSAdV8Ww&usqp=CAU" alt="Person">@CurrentPost.Reviewers.FirstName
+                    </div>
+                </div>
+                @if(CurrentPost.Diet == "Vegan")
+                {
+                    <span class="badge rounded-pill badge-success p-2 badge-diet" style="font-size:1.5rem">@CurrentPost.Diet</span>
+                }
+                else if (CurrentPost.Diet == "Vegetarian")
+                {
+                    <span class="badge rounded-pill badge-light p-2 badge-diet" style="font-size:1.5rem">@CurrentPost.Diet</span>
+                }
+                else if (CurrentPost.Diet == "Gluten free")
+                {
+                    <h2 class="badge rounded-pill badge-warning p-2 badge-diet" style="font-size:1.5rem">@CurrentPost.Diet</h2>
+                }
+                else if (CurrentPost.Diet == "General")
+                {
+                    <span class="badge rounded-pill badge-primary p-2 badge-diet" style="font-size:1.5rem">@CurrentPost.Diet</span>
+                }
+                else
+                {
+                    <span class="badge rounded-pill badge-secondary p-2 badge-diet" style="font-size:1.5rem">@CurrentPost.Diet</span>               
+                }
+                                            
                 <p class="card-text"><strong>Description:</strong> @CurrentPost.Description</p> 
                 <p class="card-text"><strong>City:</strong> @CurrentPost.City</p>
                 <p class="card-text"><strong>Country:</strong> @CurrentPost.Country</p>
                 <p class="card-text"><strong>Rating:</strong> @CurrentPost.Rating</p>
             </div>
         </div> 
-        <div class="col-4">
-            <div class="card-body">
+        <hr>
+        <div class="col-6">
+            <div class="card-body p-4">
             <p class="card-text"><strong>Latitude:</strong> @CurrentPost.Latitude</p>
             <p class="card-text"><strong>Longitude:</strong> @CurrentPost.Longitude</p>
             </div>

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ReBrunchV1.Client.Shared;
 using ReBrunchV1.Server.Data;
 using ReBrunchV1.Shared;
 using System;
@@ -23,14 +25,17 @@ namespace ReBrunchV1.Server.Controllers
         [HttpGet]
         public ActionResult<List<BlogPost>> GetAllBlogPosts()
         {
-            return Ok(_blogPostContext.BlogPosts);
+            object post = _blogPostContext.BlogPosts.Include(list => list.Reviewers).ToList();
+            return Ok(post);
         }
 
 
         [HttpGet("{url}")]
         public ActionResult<BlogPost> GetSingleBlogPost(string url)
         {
-            var post = _blogPostContext.BlogPosts.FirstOrDefault(p => p.Url.ToLower().Equals(url.ToLower()));
+            var post = _blogPostContext.BlogPosts
+                .Include(list => list.Reviewers).ToList()
+                .FirstOrDefault(p => p.Url.ToLower().Equals(url.ToLower()));
 
             if (post == null)
             {

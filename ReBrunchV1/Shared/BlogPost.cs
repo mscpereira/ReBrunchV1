@@ -36,5 +36,6 @@ namespace ReBrunchV1.Shared
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public bool IsPublished { get; set; } = true;
         public bool IsDeleted { get; set; } = false;
+        public virtual Reviewer Reviewers { get; set; }
     }
 }
